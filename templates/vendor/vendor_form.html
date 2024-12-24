@@ -1,0 +1,92 @@
+{% extends 'bases/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+<div class="popup-container">
+    <div class="popup">
+        <div class="popup-header">
+            <h2 class="text-2xl font-bold ">{{ title }}</h2>
+        </div>
+        <div class="popup-body">
+            <div class="sub-popup-header">
+                <h3 class="text-xl ">Vendor setup</h3>
+            </div>
+            <form method="post">
+                {% csrf_token %}
+                
+                {% crispy vendor_form %}
+                
+                {{ sequence_formset.management_form }}
+                <div class="sub-popup-header">
+                    <h3 class="text-xl ">Sequence setup</h3>
+                </div>
+                <table class="min-w-full bg-white border border-gray-200" style="table-layout: fixed; width: 100%;">
+                    <thead>
+                        <tr class="w-full bg-gray-100 text-black-300 text-sm leading-normal">
+                            <th class="py-3 px-6 text-start" style="width: 35%;">Type</th>
+                            <th class="py-3 px-6 text-start" style="width: 20%;">Alpha</th>
+                            <th class="py-3 px-6 text-start" style="width: 20%;">numeric</th>
+                            <th class="py-3 px-6 text-start" style="width: 15%;">Padding</th>
+                            <th class="py-3 px-6 text-center" style="width: 15%;">Delete?</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-gray-600 text-sm font-light">
+                        {% for form in sequence_formset %}
+                        <tr class="border-b border-gray-200 hover:bg-gray-100 text-center" {% if forloop.last %}id="sequence-table"{% endif %}>
+                            {% for hidden in form.hidden_fields %}
+                                <td style="display:none;">{{ hidden }}</td>
+                            {% endfor %}
+                            <td class="py-3 px-2 text-center" style="width: 35%;">
+                                <select name="{{ form.prefix }}-type" class="form-select mt-1 block bg-gray-50 border border-gray-300 text-gray-700 py-2 px-3 rounded-lg focus:outline-none focus:bg-white focus:border-indigo-500" style="width: 100%; max-width: 100%;">
+                                    {% for choice in form.type.field.choices %}
+                                        <option value="{{ choice.0 }}" {% if form.type.value == choice.0 %}selected{% endif %}>
+                                            {{ choice.1 }}
+                                        </option>
+                                    {% endfor %}
+                                </select>
+                            </td>
+                            <td class="py-3 px-2 text-center" style="width: 20%;">
+                                <input type="text" name="{{ form.prefix }}-alpha" value="{{ form.alpha.value | default:'' }}" class="form-input mt-1 block bg-gray-50 border border-gray-300 text-gray-700 py-2 px-3 rounded-lg focus:outline-none focus:bg-white focus:border-indigo-500" style="width: 100%; max-width: 100%;">
+                            </td>
+                            <td class="py-3 px-2 text-center" style="width: 15%;">
+                                <input type="number" name="{{ form.prefix }}-numeric" value="{{ form.numeric.value | default:'' }}" class="form-input mt-1 block bg-gray-50 border border-gray-300 text-gray-700 py-2 px-3 rounded-lg focus:outline-none focus:bg-white focus:border-indigo-500" style="width: 100%; max-width: 100%;">
+                            </td>
+                            <td class="py-3 px-2 text-center" style="width: 15%;">
+                                <input type="number" name="{{ form.prefix }}-padding" value="{{ form.padding.value | default:'' }}" class="form-input mt-1 block bg-gray-50 border border-gray-300 text-gray-700 py-2 px-3 rounded-lg focus:outline-none focus:bg-white focus:border-indigo-500" style="width: 100%; max-width: 100%;">
+                            </td>
+                            <td class="py-3 px-6 text-center" style="width: 15%;">
+                                <input type="checkbox" name="{{ form.prefix }}-can_delete" class="form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out" {% if form.can_delete.value %}checked{% endif %}>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                
+                <div class="flex justify-center my-2">
+                    <button type="submit" class="btn-save mx-4">
+                        {% if vendor_form.instance.id %}
+                            Update
+                        {% else %}
+                            Save
+                        {% endif %}
+                    </button>
+                    <a href="{% url 'vendor:vendor_list' %}" class="btn-cancel">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function() {
+        $('#sequence-table').formset({
+            addText: "Add More",
+            deleteText: '',
+            addCssClass: "btn-save mx-4",
+            prefix: '{{ sequence_formset.prefix }}',
+        });
+    });
+</script>
+{% endblock %}

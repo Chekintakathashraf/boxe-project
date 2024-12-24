@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Authentication{% endblock %}</title>
+    <!-- Tailwind CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.0/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet">
+    {% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+
+    {% block extra_head %}{% endblock %}
+</head>
+<body class="bg-gray-100">
+
+    <div class="flex justify-center items-center min-h-screen">
+        <div class="bg-white p-8 rounded-lg shadow-lg w-96">
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+
+    <!-- Additional Scripts -->
+    {% block extra_scripts %}{% endblock %}
+</body>
+</html>

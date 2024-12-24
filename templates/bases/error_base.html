@@ -1,0 +1,101 @@
+{% load static %}
+{% load allauth i18n %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-nav-layout="vertical" data-vertical-style="overlay" class="light" data-header-styles="light" data-menu-styles="light" data-toggled="close">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Error{% endblock %}</title>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="{% static 'images/brand-logos/favicon.ico' %}">
+
+    <!-- Tailwind CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+
+    <!-- Particles JS -->
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+</head>
+
+<body>
+    <!-- Loader -->
+    <div id="loader" class="loader hide">
+        <img src="{% static 'images/media/loader.svg' %}" alt="Loading...">
+    </div>
+    <!-- End Loader -->
+
+    <!-- Particle Background -->
+    <div id="particles-js" class="absolute inset-0 z-0"></div>
+
+    <!-- Main Error Content -->
+    <div class="popup-container relative z-10">
+        <div class="popup">
+            <h1 class="text-primary text-2xl font-bold mb-4">Oops! Something went wrong.</h1>
+            <p class="text-gray-700 mb-4">
+                We couldn't process your request at the moment. Please try again later.
+            </p>
+
+            <!-- Buttons -->
+            <div class="flex space-x-4">
+                <button class="btn-primary" onclick="window.location.href='/'">Return Home</button>
+                <button class="btn-secondary" onclick="location.reload();">Retry</button>
+            </div>
+        </div>
+    </div>
+    <!-- End Main Content -->
+
+    <!-- Particles JS Configuration -->
+    <script>
+        particlesJS("particles-js", {
+            "particles": {
+                "number": {
+                    "value": 80,
+                    "density": { "enable": true, "value_area": 800 }
+                },
+                "color": { "value": "#ffffff" },
+                "shape": {
+                    "type": "circle",
+                    "stroke": { "width": 0, "color": "#000000" }
+                },
+                "opacity": {
+                    "value": 0.5,
+                    "anim": { "enable": true, "speed": 1, "opacity_min": 0.1 }
+                },
+                "size": {
+                    "value": 3,
+                    "anim": { "enable": true, "speed": 40, "size_min": 0.1 }
+                },
+                "line_linked": {
+                    "enable": true,
+                    "distance": 150,
+                    "color": "#ffffff",
+                    "opacity": 0.4,
+                    "width": 1
+                },
+                "move": {
+                    "enable": true,
+                    "speed": 6,
+                    "out_mode": "out",
+                    "bounce": false
+                }
+            },
+            "interactivity": {
+                "events": {
+                    "onhover": { "enable": true, "mode": "repulse" },
+                    "onclick": { "enable": true, "mode": "push" }
+                },
+                "modes": {
+                    "repulse": { "distance": 100 },
+                    "push": { "particles_nb": 4 }
+                }
+            },
+            "retina_detect": true
+        });
+    </script>
+</body>
+
+</html>

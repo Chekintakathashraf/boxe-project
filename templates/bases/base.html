@@ -1,0 +1,199 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}My Site{% endblock %}</title>
+
+    <!-- Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.3/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    {% comment %} <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}"> {% endcomment %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/button.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/general.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/header.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/messages.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/sidebar.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/table.css' %}">
+
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
+
+    <!-- jQuery (required for DataTables) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- formset -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.formset/1.2.2/jquery.formset.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.formset/1.2.2/jquery.formset.js"></script>
+
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+  
+    
+
+</head>
+
+<body class="full-content">
+   
+
+    <div class="flex  min-h-screen ">
+        <!-- Left Sidebar -->
+        <div id="left" class="bg-blue-900 text-white  w-64 transition-all duration-300">
+            {% include 'pages/sidebar.html' %}
+        </div>
+
+        <!-- Right Content -->
+        <div id="right" class="flex-1  flex flex-col">
+            {% include 'pages/header.html' %}
+
+            <main id="main-content" class="p-8 flex-1">
+                <div id="message-container w-full">
+                    {% for message in messages %}
+                    <div class="message {{ message.tags }} p-4 rounded-md mb-4">
+                        <p class="message-text">{{ message }}</p>
+                    </div>
+                    {% endfor %}
+                </div>
+                
+                
+                
+                {% block content %}
+                {% endblock %}
+            </main>
+
+            {% include 'pages/footer.html' %}
+        </div>
+    </div>
+    <!-- messeges -->
+    <script>
+      
+        document.addEventListener("DOMContentLoaded", function() {
+     
+            const messages = document.querySelectorAll('.message');
+         
+            messages.forEach(function(message) {
+              
+                setTimeout(function() {
+                    message.style.opacity = 0;
+                    message.style.transition = 'opacity 1s'; 
+                }, 1000);  
+                
+                setTimeout(function() {
+                    message.remove();
+                }, 1000); 
+            });
+        });
+    </script>
+
+
+
+    <!-- profile toogle -->
+
+    <script>
+        document.getElementById('profile-menu-toggle').addEventListener('click', function(event) {
+            event.stopPropagation();
+            var menu = document.getElementById('profile-menu');
+            menu.classList.toggle('hide');  
+        });
+    
+        document.addEventListener('click', function(event) {
+            var menu = document.getElementById('profile-menu');
+            if (!menu.contains(event.target) && !event.target.closest('#profile-menu-toggle')) {
+                menu.classList.add('hide');
+            }
+        });
+    </script>
+    
+    <!-- toggle bar -->
+    <script>
+
+        const sidebar = document.getElementById('left');
+        const sidebarToggleButton = document.getElementById('sidebar-toggle');
+        
+        let isSidebarCollapsed = false;
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            const storedMenuId = localStorage.getItem('collapsed-menu-id');
+            
+            if (storedMenuId) {
+                const menu = document.getElementById(storedMenuId);
+                if (menu) {
+                    toggleSidebar(menu);
+                }
+            }
+        });
+
+        function toggleCollapse() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('collapsed');
+        }
+    
+        function toggleSubmenu(submenuId) {
+            const submenu = document.getElementById(submenuId);
+            submenu.classList.toggle('hidden');
+        }
+        
+        sidebarToggleButton.addEventListener('click', function() {
+            isSidebarCollapsed = !isSidebarCollapsed;
+            
+            if (isSidebarCollapsed) {
+                sidebar.classList.remove('w-64');
+                sidebar.classList.add('w-16');
+                localStorage.setItem('collapsed-menu-id', 'left');  
+            } else {
+                sidebar.classList.remove('w-16');
+                sidebar.classList.add('w-64');
+                localStorage.removeItem('collapsed-menu-id');  
+            }
+            
+            const sidebarTextElements = document.querySelectorAll('.sidebar-menu-text');
+            sidebarTextElements.forEach((el) => {
+                el.classList.toggle('hidden', isSidebarCollapsed);
+            });
+            
+            const logoText = document.querySelector('.sidebar-logo-text');
+            logoText.classList.toggle('hidden', isSidebarCollapsed);
+        });
+        function toggleSubmenu(submenuId) {
+            const submenu = document.getElementById(submenuId);
+            const allSubmenus = document.querySelectorAll('.submenu');
+            const parentGroup = submenu.closest('.group'); 
+        
+            allSubmenus.forEach(sub => {
+                if (sub !== submenu) {
+                    sub.classList.add('hidden');
+                    sub.closest('.group').classList.remove('active');
+                }
+            });
+        
+            submenu.classList.toggle('hidden');
+            if (!submenu.classList.contains('hidden')) {
+                parentGroup.classList.add('active'); 
+                localStorage.setItem('collapsed-menu-id', submenuId);
+            } else {
+                parentGroup.classList.remove('active'); 
+                localStorage.removeItem('collapsed-menu-id');
+            }
+        }
+        
+        
+
+        
+    </script>
+
+
+    <!-- data-table -->
+    <script>
+        $(document).ready( function () {
+            $('#custom-datatable').DataTable();
+        } );
+    </script>
+        
+</body>
+
+</html>

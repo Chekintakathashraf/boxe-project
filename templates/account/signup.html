@@ -1,0 +1,27 @@
+{% extends 'bases/authentication_base.html' %}
+
+{% block title %}Signup Closed{% endblock %}
+
+{% block content %}
+<div class="page error-bg dark:bg-bodybg" id="particles-js">
+  <!-- Start::Signup Closed Page -->
+  <div class="error-page">
+    <div class="container text-defaulttextcolor dark:text-defaulttextcolor/70 text-defaultsize">
+      <div class="text-center p-5 my-auto">
+        <div class="flex items-center justify-center h-full !text-defaulttextcolor">
+          <div class="xl:col-span-3"></div>
+          <div class="xl:col-span-6 col-span-12">
+            <!-- Message Content -->
+            <p class="text-[1.125rem] font-semibold mb-4">Signup is currently closed.</p>
+            <p class="mb-4">We are not accepting new signups at the moment. Please check back later.</p>
+            <a href="{% url 'account_login' %}" class="ti-btn bg-primary text-white font-semibold dark:border-defaultborder/10">
+              <i class="ri-arrow-left-line align-middle inline-block"></i> GO TO LOGIN PAGE
+            </a>
+          </div>
+          <div class="xl:col-span-3"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

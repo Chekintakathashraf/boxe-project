@@ -1,0 +1,30 @@
+{% extends 'bases/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="popup-container">
+    <div class="popup">
+        <div class="popup-header">
+            <h2 class="text-2xl font-bold">User Form</h2>
+        </div>
+        <div class="popup-body">
+            <form method="post">
+                {% csrf_token %}
+                {% crispy form %}
+                <div class="flex justify-center my-2">
+                    <button type="submit" class="btn-save mx-4">
+                        {% if form.instance.id %}
+                            Update
+                        {% else %}
+                            Save
+                        {% endif %}
+                    </button>
+                    <a href="{% url 'users:user_list' %}" class="btn-cancel">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

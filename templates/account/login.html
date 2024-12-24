@@ -1,0 +1,85 @@
+{% extends 'bases/authentication_base.html' %}
+{% load static %}
+{% block title %}Login{% endblock %}
+
+{% block content %}
+
+    <div class="w-full flex items-start mb-4">
+        <h2 class="text-2xl font-bold text-primary">Sign In</h2>
+    </div>
+    
+    <form method="post" action="{% url 'users:account_login' %}" class="w-full mb-8">
+        {% csrf_token %}
+        
+        {% comment %} <!-- Email Input -->
+        <div class="mb-4">
+            <label for="id_login" class="block text-gray-700 font-bold">Email</label>
+            <input type="email" name="login" id="id_login" class="w-full p-3 border border-gray-300 rounded" required>
+            {% if form.login.errors %}
+                <div class="text-red-500 mt-1">
+                    {{ form.login.errors.0 }}
+                </div>
+            {% endif %}
+        </div> {% endcomment %}
+        <!-- Phone Number Input -->
+        <div class="mb-4">
+            <label for="id_login" class="block text-gray-700 font-bold">Phone Number</label>
+            <input type="text" name="login" id="id_login" class="w-full p-3 border border-gray-300 rounded" required>
+            {% if form.login.errors %}
+                <div class="text-red-500 mt-1">
+                    {{ form.login.errors.0 }}
+                </div>
+            {% endif %}
+        </div>
+
+
+        <!-- Password Input -->
+        <div class="mb-4 relative">
+            <label for="id_password" class="block text-gray-700 font-bold">Password</label>
+            <div class="relative mt-3 w-full">
+                <input type="password" name="password" id="id_password" class="w-full p-3 border border-gray-300 rounded pr-10" required>
+                <span class="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer" id="togglePassword">
+                    <i class="ri-eye-line text-gray-500" id="eyeIcon"></i>
+                </span>
+            </div>
+            <div class="mt-1">
+                {% for message in messages %}
+                    <div class="text-red-500">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        
+        <!-- Forgot Password Link -->
+        <div class="flex justify-between items-center mb-8">
+            <a href="{% url 'users:account_reset_password' %}" class="text-blue-600">Forgot Password?</a>
+        </div>
+        
+        <!-- Submit Button -->
+        <button type="submit" class="w-full py-2 rounded bg-blue-600 text-white font-bold">Sign In</button>
+    </form>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const togglePassword = document.querySelector('#togglePassword');
+            const password = document.querySelector('#id_password');
+            const eyeIcon = document.querySelector('#eyeIcon');
+
+            togglePassword.addEventListener('click', function () {
+                const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+                password.setAttribute('type', type);
+                
+                // Toggle eye icon
+                if (type === 'password') {
+                    eyeIcon.classList.remove('ri-eye-off-line');
+                    eyeIcon.classList.add('ri-eye-line');
+                } else {
+                    eyeIcon.classList.remove('ri-eye-line');
+                    eyeIcon.classList.add('ri-eye-off-line');
+                }
+            });
+        });
+    </script>
+
+{% endblock %}

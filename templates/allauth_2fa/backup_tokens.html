@@ -1,0 +1,54 @@
+{% extends "bases/mfa_base.html" %}
+{% load static %}
+{% load i18n %}
+
+{% block content %}
+<div class="flex justify-center items-center h-screen w-full">
+  <div class="p-8 w-full max-w-xl">
+    <div class="bg-white shadow-md rounded-md p-6">
+      <div class="box-body">
+        <p class="text-2xl font-semibold text-center">
+          Two-Factor Authentication Backup Tokens
+        </p>
+      </div>
+
+      <!-- Token Section -->
+      <div class="my-4 min-h-[100px] flex flex-col items-center justify-center">
+        {% if backup_tokens %}
+          {% if reveal_tokens %}
+            <div class="flex flex-wrap justify-center gap-2">
+              {% for token in backup_tokens %}
+                <span class="bg-yellow-100 border border-yellow-300 text-yellow-700 font-bold text-base py-1 px-2 rounded-md">
+                  {{ token.token }}
+                </span>
+              {% endfor %}
+            </div>
+          {% else %}
+            <p class="text-base text-center">
+              Backup tokens have been generated, but are not revealed here for security reasons. Press the button below to generate new ones.
+            </p>
+          {% endif %}
+        {% else %}
+          <p class="text-base text-center">
+            No tokens. Press the button below to generate some.
+          </p>
+        {% endif %}
+      </div>
+
+      <!-- Buttons Section -->
+      <div class="space-y-4">
+        <form method="post" class="text-center">
+          {% csrf_token %}
+          <button type="submit" class="w-full py-2 rounded btn-primary font-bold">
+            Generate Backup Tokens
+          </button>
+        </form>
+
+        <a href="{% url 'home' %}" class="w-full py-2 rounded btn-secondary font-bold text-center">
+          Home
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
