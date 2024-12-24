@@ -202,3 +202,12 @@ MESSAGE_TAGS = {
     'warning': 'bg-yellow-500 text-white',  # Warning messages color
     'error': 'bg-red-500 text-white',  # Error messages color
 }
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'your-email-server.com'
+# EMAIL_PORT = 587  # or 465 depending on your setup
+# EMAIL_USE_TLS = True  # or False
+# EMAIL_HOST_USER = 'your-email@example.com'
+# EMAIL_HOST_PASSWORD = 'your-email-password'
