@@ -1,0 +1,21 @@
+<header class="shadow-md flex items-center justify-between px-8 py-4 bg-white">
+    <!-- Sidebar Toggle Button -->
+    <button id="sidebar-toggle" class="btn-secondary p-2 rounded focus:outline-none">
+        <i class="ri-menu-2-line text-2xl"></i>
+    </button>
+
+    <!-- Page Title -->
+    <h1 class="text-primary font-bold text-xl">Dashboard</h1>
+
+    <!-- Profile Dropdown -->
+    <div class="relative">
+        <button id="profile-menu-toggle" class="flex items-center">
+            {% comment %} <img src="https://via.placeholder.com/40" alt="Profile" class="rounded-full" style="width: 40px; height: 40px;"> {% endcomment %}
+            icon
+        </button>
+        <ul id="profile-menu" class="profile-menu hide">
+            <li><a href="#" class="block px-4 py-2">Profile</a></li>
+            <li><a href="{% url 'users:account_logout' %}" class="block px-4 py-2">Logout</a></li>
+        </ul>
+    </div>
+</header>

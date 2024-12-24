@@ -1,0 +1,93 @@
+<aside id="sidebar" class="transition-all duration-300">
+    <!-- Logo Section -->
+    <div class="p-4 text-center font-bold text-lg border-b border-primary-dark">
+        {% comment %} <img src="https://via.placeholder.com/40" alt="Logo" class="w-10 h-10 rounded-full inline-block mr-2"> {% endcomment %}
+        <span class="sidebar-logo-text">My Site</span>
+    </div>
+
+    <!-- Sidebar Menu -->
+    <nav class="mt-4">
+        <ul>
+            <!-- Purchase Menu -->
+            <li class="group">
+                <button class="w-full flex items-center px-4 py-2 text-left hover:bg-primary-dark focus:bg-primary-dark focus:outline-none" onclick="toggleSubmenu('submenu1')">
+                    <i class="ri-shopping-cart-line text-lg"></i>
+                    <span class="sidebar-menu-text ml-3">Purchase</span>
+                    
+                    <i class="ri-arrow-down-s-line ml-auto"></i>
+                </button>
+                <ul id="submenu1" class="submenu w-full pl-4 mt-2 hidden">
+                    <li class="py-1 w-full flex items-center">
+                        <button class="flex items-center w-full px-2 py-2 text-left hover:bg-primary-dark focus:bg-primary-dark focus:outline-none">
+                            <i class="ri-file-paper-line mr-2"></i>
+                            <span class="sidebar-menu-text">Billing</span>
+                        </button>
+                    </li>
+                    <li class="py-1 w-full flex items-center">
+                        <button class="flex items-center w-full px-2 py-2 text-left hover:bg-primary-dark focus:bg-primary-dark focus:outline-none">
+                            <i class="ri-store-line mr-2"></i>
+                            <span class="sidebar-menu-text">Vendor</span>
+                        </button>
+                    </li>
+                    <li class="py-1 w-full flex items-center">
+                        <button class="flex items-center w-full px-2 py-2 text-left hover:bg-primary-dark focus:bg-primary-dark focus:outline-none">
+                            <i class="ri-money-dollar-circle-line mr-2"></i>
+                            <span class="sidebar-menu-text">Cash</span>
+                        </button>
+                    </li>
+                </ul>
+            </li>
+
+            <!-- Selling Menu -->
+            <li class="group mt-4">
+                <button class="w-full flex items-center px-4 py-2 text-left hover:bg-primary-dark focus:bg-primary-dark focus:outline-none" onclick="toggleSubmenu('submenu2')">
+                    <i class="ri-handbag-line text-lg"></i>
+                    <span class="sidebar-menu-text ml-3">Selling</span>
+                   
+                    <i class="ri-arrow-down-s-line ml-auto"></i>
+                </button>
+                <ul id="submenu2" class="submenu w-full pl-4 mt-2 hidden">
+                    <li class="py-1 w-full flex items-center">
+                        <button class="flex items-center w-full px-2 py-2 text-left hover:bg-primary-dark focus:bg-primary-dark focus:outline-none">
+                            <i class="ri-user-line mr-2"></i>
+                            <span class="sidebar-menu-text">Customer</span>
+                        </button>
+                    </li>
+                    <li class="py-1 w-full flex items-center">
+                        <button class="flex items-center w-full px-2 py-2 text-left hover:bg-primary-dark focus:bg-primary-dark focus:outline-none">
+                            <i class="ri-truck-line mr-2"></i>
+                            <span class="sidebar-menu-text">Wholesale</span>
+                        </button>
+                    </li>
+                    <li class="py-1 w-full flex items-center">
+                        <button class="flex items-center w-full px-2 py-2 text-left hover:bg-primary-dark focus:bg-primary-dark focus:outline-none">
+                            <i class="ri-store-line mr-2"></i>
+                            <span class="sidebar-menu-text">Retail</span>
+                        </button>
+                    </li>
+                </ul>
+            </li>
+            <!-- User Menu -->
+            <li class="group mt-4">
+                <button onclick="window.location.href='{% url 'users:user_list' %}'" class="w-full flex items-center px-4 py-2 text-left hover:bg-primary-dark focus:bg-primary-dark focus:outline-none">
+                    <i class="ri-user-line text-lg"></i>
+                    <span class="sidebar-menu-text ml-3">User</span>
+                </button>
+            </li>
+            <!-- Home Menu -->
+            <li class="group mt-4">
+                <button onclick="window.location.href='{% url 'home' %}'" class="w-full flex items-center px-4 py-2 text-left hover:bg-primary-dark focus:bg-primary-dark focus:outline-none">
+                    <i class="ri-user-line text-lg"></i>
+                    <span class="sidebar-menu-text ml-3">Home</span>
+                </button>
+            </li>
+             <!-- Vendor Menu -->
+             <li class="group mt-4">
+                <button onclick="window.location.href='{% url 'vendor:vendor_list' %}'" class="w-full flex items-center px-4 py-2 text-left hover:bg-primary-dark focus:bg-primary-dark focus:outline-none">
+                    <i class="ri-user-line text-lg"></i>
+                    <span class="sidebar-menu-text ml-3">Vendor</span>
+                </button>
+            </li>
+        </ul>
+    </nav>
+</aside>

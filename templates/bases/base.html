@@ -1,199 +1,138 @@
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="">
+  <head>
+    <meta charset="utf-8" />
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}My Site{% endblock %}</title>
 
-    <!-- Tailwind CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.3/dist/tailwind.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet">
+    <title>Boxes project</title>
 
-    <!-- Custom CSS -->
-    {% comment %} <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}"> {% endcomment %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/button.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/general.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/header.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/messages.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/sidebar.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/table.css' %}">
+    <link
+      rel="canonical"
+      href="https://flowbite-admin-dashboard.vercel.app/layouts/sidebar/"
+    />
 
-    <!-- DataTables CSS -->
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://flowbite-admin-dashboard.vercel.app//app.css"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="https://flowbite-admin-dashboard.vercel.app/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="https://flowbite-admin-dashboard.vercel.app/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="https://flowbite-admin-dashboard.vercel.app/favicon-16x16.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      href="https://flowbite-admin-dashboard.vercel.app/favicon.ico"
+    />
+    <link
+      rel="manifest"
+      href="https://flowbite-admin-dashboard.vercel.app/site.webmanifest"
+    />
+    <link
+      rel="mask-icon"
+      href="https://flowbite-admin-dashboard.vercel.app/safari-pinned-tab.svg"
+      color="#5bbad5"
+    />
+    <meta name="msapplication-TileColor" content="#ffffff" />
+    <meta name="theme-color" content="#ffffff" />
 
-    <!-- jQuery (required for DataTables) -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-    <!-- formset -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.formset/1.2.2/jquery.formset.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.formset/1.2.2/jquery.formset.js"></script>
-
-    <!-- DataTables JS -->
-    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
-  
+    <script>
+      if (
+        localStorage.getItem("color-theme") === "dark" ||
+        (!("color-theme" in localStorage) &&
+          window.matchMedia("(prefers-color-scheme: dark)").matches)
+      ) {
+        document.documentElement.classList.add("dark");
+      } else {
+        document.documentElement.classList.remove("dark");
+      }
+    </script>
+    <style id="apexcharts-css"></style>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}"> 
     
+  </head>
+  <body class="bg-gray-50 dark:bg-gray-800">
+    {% include 'pages/header.html' %}
 
-</head>
+    <div class="flex pt-16 overflow-hidden bg-gray-50 dark:bg-gray-900">
+      {% include 'pages/sidebar.html' %}
 
-<body class="full-content">
-   
+      <div
+        class="fixed inset-0 z-10 bg-gray-900/50 dark:bg-gray-900/90 hidden"
+        id="sidebarBackdrop"
+      ></div>
 
-    <div class="flex  min-h-screen ">
-        <!-- Left Sidebar -->
-        <div id="left" class="bg-blue-900 text-white  w-64 transition-all duration-300">
-            {% include 'pages/sidebar.html' %}
-        </div>
-
-        <!-- Right Content -->
-        <div id="right" class="flex-1  flex flex-col">
-            {% include 'pages/header.html' %}
-
-            <main id="main-content" class="p-8 flex-1">
-                <div id="message-container w-full">
-                    {% for message in messages %}
-                    <div class="message {{ message.tags }} p-4 rounded-md mb-4">
-                        <p class="message-text">{{ message }}</p>
-                    </div>
-                    {% endfor %}
-                </div>
-                
-                
-                
-                {% block content %}
+      <div
+        id="main-content"
+        class="relative w-full h-full overflow-y-auto bg-gray-50 lg:ml-64 dark:bg-gray-900"
+      >
+        <main>
+          <div class="px-4 pt-6">
+            <div class="grid gap-4 xl:grid-cols-2 2xl:grid-cols-3">
+              <!-- Main content -->
+              {% block content %}
                 {% endblock %}
-            </main>
-
-            {% include 'pages/footer.html' %}
-        </div>
-    </div>
-    <!-- messeges -->
-    <script>
-      
-        document.addEventListener("DOMContentLoaded", function() {
-     
-            const messages = document.querySelectorAll('.message');
-         
-            messages.forEach(function(message) {
               
-                setTimeout(function() {
-                    message.style.opacity = 0;
-                    message.style.transition = 'opacity 1s'; 
-                }, 1000);  
-                
-                setTimeout(function() {
-                    message.remove();
-                }, 1000); 
-            });
-        });
-    </script>
-
-
-
-    <!-- profile toogle -->
-
-    <script>
-        document.getElementById('profile-menu-toggle').addEventListener('click', function(event) {
-            event.stopPropagation();
-            var menu = document.getElementById('profile-menu');
-            menu.classList.toggle('hide');  
-        });
-    
-        document.addEventListener('click', function(event) {
-            var menu = document.getElementById('profile-menu');
-            if (!menu.contains(event.target) && !event.target.closest('#profile-menu-toggle')) {
-                menu.classList.add('hide');
-            }
-        });
-    </script>
-    
-    <!-- toggle bar -->
-    <script>
-
-        const sidebar = document.getElementById('left');
-        const sidebarToggleButton = document.getElementById('sidebar-toggle');
+            </div>
+          </div>
+        </main>
         
-        let isSidebarCollapsed = false;
-        
-        document.addEventListener('DOMContentLoaded', function() {
-            const storedMenuId = localStorage.getItem('collapsed-menu-id');
-            
-            if (storedMenuId) {
-                const menu = document.getElementById(storedMenuId);
-                if (menu) {
-                    toggleSidebar(menu);
-                }
-            }
-        });
+        {% include 'pages/footer.html' %}
 
-        function toggleCollapse() {
-            const sidebar = document.getElementById('sidebar');
-            sidebar.classList.toggle('collapsed');
-        }
-    
-        function toggleSubmenu(submenuId) {
-            const submenu = document.getElementById(submenuId);
-            submenu.classList.toggle('hidden');
-        }
-        
-        sidebarToggleButton.addEventListener('click', function() {
-            isSidebarCollapsed = !isSidebarCollapsed;
-            
-            if (isSidebarCollapsed) {
-                sidebar.classList.remove('w-64');
-                sidebar.classList.add('w-16');
-                localStorage.setItem('collapsed-menu-id', 'left');  
-            } else {
-                sidebar.classList.remove('w-16');
-                sidebar.classList.add('w-64');
-                localStorage.removeItem('collapsed-menu-id');  
-            }
-            
-            const sidebarTextElements = document.querySelectorAll('.sidebar-menu-text');
-            sidebarTextElements.forEach((el) => {
-                el.classList.toggle('hidden', isSidebarCollapsed);
-            });
-            
-            const logoText = document.querySelector('.sidebar-logo-text');
-            logoText.classList.toggle('hidden', isSidebarCollapsed);
-        });
-        function toggleSubmenu(submenuId) {
-            const submenu = document.getElementById(submenuId);
-            const allSubmenus = document.querySelectorAll('.submenu');
-            const parentGroup = submenu.closest('.group'); 
-        
-            allSubmenus.forEach(sub => {
-                if (sub !== submenu) {
-                    sub.classList.add('hidden');
-                    sub.closest('.group').classList.remove('active');
-                }
-            });
-        
-            submenu.classList.toggle('hidden');
-            if (!submenu.classList.contains('hidden')) {
-                parentGroup.classList.add('active'); 
-                localStorage.setItem('collapsed-menu-id', submenuId);
-            } else {
-                parentGroup.classList.remove('active'); 
-                localStorage.removeItem('collapsed-menu-id');
-            }
-        }
-        
-        
+      </div>
+    </div>
 
-        
-    </script>
+    <script
+      async=""
+      defer=""
+      src="https://buttons.github.io/buttons.js"
+    ></script>
+    <script src="https://flowbite-admin-dashboard.vercel.app//app.bundle.js"></script>
+    <svg
+      id="SvgjsSvg1344"
+      width="2"
+      height="0"
+      xmlns="http://www.w3.org/2000/svg"
+      version="1.1"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+      xmlns:svgjs="http://svgjs.dev"
+      style="
+        overflow: hidden;
+        top: -100%;
+        left: -100%;
+        position: absolute;
+        opacity: 0;
+      "
+    >
+      <defs id="SvgjsDefs1345"></defs>
+      <polyline id="SvgjsPolyline1346" points="0,0"></polyline>
+      <path
+        id="SvgjsPath1347"
+        d="M-1 2647.699L-1 2647.699C-1 2647.699 53.76041666666667 2647.699 53.76041666666667 2647.699C53.76041666666667 2647.699 107.52083333333334 2647.699 107.52083333333334 2647.699C107.52083333333334 2647.699 161.28125 2647.699 161.28125 2647.699C161.28125 2647.699 215.04166666666669 2647.699 215.04166666666669 2647.699C215.04166666666669 2647.699 268.80208333333337 2647.699 268.80208333333337 2647.699C268.80208333333337 2647.699 322.5625 2647.699 322.5625 2647.699C322.5625 2647.699 322.5625 2647.699 322.5625 2647.699 "
+      ></path>
+    </svg>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.2/datepicker.min.js"></script>
 
-
-    <!-- data-table -->
-    <script>
-        $(document).ready( function () {
-            $('#custom-datatable').DataTable();
-        } );
-    </script>
-        
-</body>
-
+   
+  </body>
 </html>
