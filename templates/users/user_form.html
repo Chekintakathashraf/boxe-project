@@ -16,8 +16,10 @@
         <div class="p-6 space-y-6">
             <form method="post">
             {% csrf_token %}
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
             {% crispy form %}
-            <div>
+            </div>
+               
                 
                 <!-- Page footer -->
                 <div class="flex items-center justify-center p-6 border-t border-gray-200 rounded-b dark:border-gray-700 space-x-4">
@@ -32,7 +34,7 @@
                         Cancel
                     </a>
                 </div>
-            </div>
+           
             </form>
         </div>
     </div>

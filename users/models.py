@@ -81,7 +81,6 @@ class User(AbstractUser):
     phone_number = models.BigIntegerField(
         unique=True,
         validators=[
-            MinValueValidator(1000000000, message="Phone number must be at least 10 digits."),
             MaxValueValidator(9999999999, message="Phone number cannot exceed 10 digits."),
         ],
     )
@@ -105,7 +104,4 @@ class User(AbstractUser):
     def get_absolute_url(self):
         return reverse("users:detail", kwargs={"pk": self.id})
 
-    def clean(self):
-        super().clean()
-        if len(str(self.phone_number)) != 10:
-            raise ValidationError({"phone_number": "Phone number must contain exactly 10 digits."})
+

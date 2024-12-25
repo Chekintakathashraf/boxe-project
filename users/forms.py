@@ -86,53 +86,57 @@ class UserForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ['name', 'email','role', 'phone_number']
+    
     def __init__(self, *args, **kwargs):
         super(UserForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.form_tag = False
         self.helper.disable_csrf = True
         self.helper.layout = Layout(
-            Div(
-                # Name Field
-                HTML("""
-                <div class="col-span-6 sm:col-span-3">
-                    <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
-                    <input type="text" name="name" id="name" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Enter your name" required>
-                    {% if form.name.errors %}
-                    <p class="text-sm text-red-600 dark:text-red-400 mt-1">
-                        {{ form.name.errors|striptags }}
-                    </p>
-                    {% endif %}
-                </div>
-                """),
-                # Email Field
-                HTML("""
-                <div class="col-span-6 sm:col-span-3">
-                    <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
-                    <input type="email" name="email" id="email" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="example@company.com" required>
-                    {% if form.email.errors %}
-                    <p class="text-sm text-red-600 dark:text-red-400 mt-1">
-                        {{ form.email.errors|striptags }}
-                    </p>
-                    {% endif %}
-                </div>
-                """),
-                css_class="grid grid-cols-2 gap-4"
-            ),
-            Div(
-                # Phone Number Field
-                HTML("""
-                <div class="col-span-6 sm:col-span-3">
-                    <label for="phone_number" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone Number</label>
-                    <input type="text" name="phone_number" id="phone_number" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="123-456-7890" required>
-                    {% if form.phone_number.errors %}
-                    <p class="text-sm text-red-600 dark:text-red-400 mt-1">
-                        {{ form.phone_number.errors|striptags }}
-                    </p>
-                    {% endif %}
-                </div>
-                """),
-                HTML("""
+        Div(
+            # Name Field
+            HTML("""
+            <div class="col-span-6 sm:col-span-3">
+                <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
+                <input type="text" name="name" id="name" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Enter your name" required>
+                {% if form.name.errors %}
+                <p class="text-sm text-red-600 dark:text-red-400 mt-1">
+                    {{ form.name.errors|striptags }}
+                </p>
+                {% endif %}
+            </div>
+            """),
+            # Email Field
+            HTML("""
+            <div class="col-span-6 sm:col-span-3">
+                <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
+                <input type="email" name="email" id="email" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="example@company.com" required>
+                {% if form.email.errors %}
+                <p class="text-sm text-red-600 dark:text-red-400 mt-1">
+                    {{ form.email.errors|striptags }}
+                </p>
+                {% endif %}
+            </div>
+            """),
+            
+            css_class="grid grid-cols-2 gap-4"
+        ),
+        Div(
+            
+            # Phone Number Field
+            HTML("""
+            <div class="col-span-6 sm:col-span-3">
+                <label for="phone_number" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone Number</label>
+                <input type="text" name="phone_number" id="phone_number" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="1234567890" required>
+                {% if form.phone_number.errors %}
+                <p class="text-sm text-red-600 dark:text-red-400 mt-1">
+                    {{ form.phone_number.errors|striptags }}
+                </p>
+                {% endif %}
+            </div>
+            """),
+            # Role Field
+            HTML("""
             <div class="col-span-6 sm:col-span-3">
                 <label for="role" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Role</label>
                 <select name="role" id="role" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required>
@@ -149,9 +153,11 @@ class UserForm(forms.ModelForm):
                 {% endif %}
             </div>
             """),
-                css_class="grid grid-cols-2 gap-4 mt-4"
-            )
-        )
+            css_class="grid grid-cols-2 gap-4"
+        ),
+        
+    )
+
 
     def clean_name(self):
         name = self.cleaned_data.get('name')
@@ -173,9 +179,11 @@ class UserForm(forms.ModelForm):
 
     def clean_phone_number(self):
         phone_number = self.cleaned_data.get('phone_number')
-
-        
         if User.objects.filter(phone_number=phone_number).exclude(id=self.instance.id).exists():
             raise ValidationError(_("This phone number is already used."), code='unique_phone')
-        
+        elif len(str(phone_number)) < 10:
+            raise ValidationError(_("Phone number must be at least 10 digits."), code='min_length')
+        elif len(str(phone_number)) != 10:
+            raise ValidationError(_("Phone number must contain exactly 10 digits."), code='exact_length')
         return phone_number
+
