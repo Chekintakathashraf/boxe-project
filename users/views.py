@@ -165,6 +165,7 @@ def create_user(request):
             return redirect('users:user_list')
         else:
             messages.error(request, 'Please correct the errors below.')  
+            print(form.errors)
     else:
         form = UserForm()  
 
@@ -188,31 +189,30 @@ def update_user(request, user_id):
     return render(request, 'users/user_form.html', {'form': form})
 
 
-# def user_list(request):
-    search_query = request.GET.get('search', '')
 
+
+def user_list(request):
+    search_query = request.GET.get('search', '')
     role_filter = request.GET.get('role', '')
 
     users = User.objects.all()
-
 
     if search_query:
         if not search_query.isdigit():
             users = users.filter(
                 Q(name__icontains=search_query) |
-                Q(email__icontains=search_query) 
-                
+                Q(email__icontains=search_query)
             )
         else:
             users = users.filter(
-                Q(phone_number__icontains=search_query) 
+                Q(phone_number__icontains=search_query)
             )
     if role_filter:
-        users = users.filter(role__role_name=role_filter)  
+        users = users.filter(role__role_name=role_filter)
 
-    paginator = Paginator(users, 10) 
-    page_number = request.GET.get('page') 
-    page_obj = paginator.get_page(page_number) 
+    paginator = Paginator(users, 25)  # 10 entries per page
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
 
     roles = Role.objects.all()
     return render(request, 'users/user_list.html', {
@@ -220,27 +220,7 @@ def update_user(request, user_id):
         'roles': roles,
         'search_query': search_query,
         'role_filter': role_filter,
-        'title' : "Users List",
-    })
-
-def user_list(request):
-    
-    role_filter = request.GET.get('role', '')
-
-    users = User.objects.all()
-
-
-    if role_filter:
-        users = users.filter(role__role_name=role_filter)  
-
-
-
-    roles = Role.objects.all()
-    return render(request, 'users/user_list.html', {
-        'users': users,
-        'roles': roles,
-        'role_filter': role_filter,
-        'title' : "Users List",
+        'title': "Users List",
     })
 
 def user_detail(request, pk):
