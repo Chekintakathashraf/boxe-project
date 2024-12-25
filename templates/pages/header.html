@@ -166,8 +166,8 @@
               
               <div class="hidden z-50 my-4 w-56 text-base list-none bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600" id="userMenuDropdown" data-popper-placement="bottom" style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate(577px, 58px);">
                   <div class="py-3 px-4">
-                      <span class="block text-sm font-semibold text-gray-900 dark:text-white">jibreel</span>
-                      <span class="block text-sm font-light text-gray-500 truncate dark:text-gray-400">admin</span>
+                      <span class="block text-sm font-semibold text-gray-900 dark:text-white">{{ request.user.name }}</span>
+                      <span class="block text-sm font-light text-gray-500 truncate dark:text-gray-400">{{ request.user.role.role_name }}</span>
                   </div>
                   <ul class="py-1 font-light text-gray-500 dark:text-gray-400" aria-labelledby="userMenuDropdownButton">
                       <li>
