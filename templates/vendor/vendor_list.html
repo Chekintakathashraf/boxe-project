@@ -11,23 +11,34 @@
 
       <!-- Popup Heading close -->
 
-    <div class="p-4 bg-white grid grid-cols-2 gap-4 items-center border-b border-gray-200 lg:mt-1.5 dark:bg-gray-800 dark:border-gray-700">
+     <div class="w-full mb-1">
+    <div class="sm:flex sm:space-x-4">
+
+    
+        <!-- Search -->
         
-        <div class="flex justify-start">
-            <form class="lg:pr-3" action="" method="GET">
-                <label for="vendors-search" class="sr-only">Search</label>
-                <div class="relative mt-1 lg:w-64 xl:w-96">
-                    <input type="text" name="search" id="vendors-search" value="{{ search_query }}" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Search for vendors">
-                </div>
-            </form>
-        </div>
-        <div class="flex justify-end">
-            <a href="{% url 'vendor:create_vendor' %}" class="inline-flex items-center justify-center px-3 py-2 text-sm font-medium text-center text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+        <form class="w-full sm:w-1/3   " action="{% url 'vendor:vendor_list' %}" method="GET">
+            <label for="vendor-search" class="sr-only">Search</label>
+            <div class="relative mt-1">
+                <input type="text" name="search" id="vendor-search" value="{{ search_query }}" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Search for vendor">
+            </div>
+        </form>
+
+        
+       
+
+        <!-- Add -->
+        <div class="w-full mt-3 sm:mt-0 sm:w-1/3 flex justify-end my-4">
+            <a href="{% url 'vendor:create_vendor' %}" class="my-2 inline-flex items-center justify-center px-3 py-2 text-sm font-medium text-center text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
                 <svg class="w-5 h-5 mr-2 -ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
                 Add vendor
             </a>
         </div>
     </div>
+</div>
+
+
+    <!-- table -->
     <div class="flex flex-col">
         <div class="overflow-x-auto">
             <div class="inline-block min-w-full align-middle">
