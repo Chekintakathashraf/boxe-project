@@ -36,6 +36,8 @@
     }
   </script>
   <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}" />
+
+ 
 </head>
 
 <body class="bg-gray-50 dark:bg-gray-800 flex flex-col min-h-screen ">
@@ -88,7 +90,23 @@
       ></path>
     </svg>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.2/datepicker.min.js"></script>
+    <!-- jQuery (required for DataTables) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+    <!-- formset -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.formset/1.2.2/jquery.formset.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.formset/1.2.2/jquery.formset.js"></script>
+
+    <script>
+      $(function() {
+          $('#sequence-table').formset({
+              addText: "Add More",
+              deleteText: '',
+              addCssClass: "text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800",
+              prefix: '{{ sequence_formset.prefix }}',
+          });
+      });
+  </script>
    
   </body>
 </html>

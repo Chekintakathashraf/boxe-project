@@ -4,6 +4,8 @@ from django.db.models import Q
 from .forms import *
 from .models import *
 from django.db import transaction
+from django.core.paginator import Paginator
+
 def create_vendor(request):
     if request.method == 'POST':
         vendor_form = VendorForm(request.POST)
@@ -79,10 +81,28 @@ def update_vendor(request, vendor_id):
 
 
 def vendor_list(request):
+    search_query = request.GET.get('search', '')
+
     vendors = Vendor.objects.all()
 
+    if search_query:
+        if not search_query.isdigit():
+            vendors = vendors.filter(
+                Q(vendor_name__icontains=search_query) |
+                Q(email__icontains=search_query)
+            )
+        else:
+            vendors = vendors.filter(
+                Q(phone_number__icontains=search_query)
+            )
+
+    paginator = Paginator(vendors, 25)  # 25 entries per page
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
     return render(request, 'vendor/vendor_list.html', {
-        'vendors': vendors,
+        'page_obj': page_obj,
+        'search_query': search_query,
         'title': "Vendors List",
     })
 
