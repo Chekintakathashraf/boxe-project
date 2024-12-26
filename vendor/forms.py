@@ -46,16 +46,17 @@ class VendorForm(forms.ModelForm):
                 {% endif %}
             </div>
             """),
+            css_class="grid grid-cols-2 gap-4"
             
             
             ),
             Div(
             
-            # Phone Number Field
+            # Address Field
             HTML("""
             <div class="col-span-6 sm:col-span-3">
-                <label for="address" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone Number</label>
-                <input type="text" name="address" id="address" value="{{ vendor_form.address.value|default_if_none:'' }}" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="1234567890" required>
+                <label for="address" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Address</label>
+                <input type="text" name="address" id="address" value="{{ vendor_form.address.value|default_if_none:'' }}" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="ABCD XYZ " required>
                 {% if vendor_form.address.errors %}
                 <p class="text-sm text-red-600 dark:text-red-400 mt-1">
                     {{ vendor_form.address.errors|striptags }}
