@@ -2,119 +2,107 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-<div class="flex justify-center items-center min-h-screen px-4 py-8">
-    <div
-        class="bg-gradient-to-r from-blue-100 via-white to-blue-100 dark:bg-gradient-to-r dark:from-gray-800 dark:via-gray-900 dark:to-gray-800 shadow-3xl rounded-xl p-6 w-full  space-y-6">
+{% load static %}
+<div class="flex justify-center min-h-screen px-4 py-8">
+    <div class="dark:from-gray-800 dark:via-gray-900 dark:to-gray-800 shadow-3xl rounded-xl p-6 w-full space-y-6">
 
         <!-- Popup Heading -->
-        <div
-            class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-sm rounded-lg p-4 mb-4 transform transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:bg-gradient-to-r hover:from-blue-200 hover:to-blue-300 sm:p-6">
+        <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-sm rounded-lg p-4 mb-4 transform transition-all duration-300  sm:p-6">
             <h2 class="text-2xl font-semibold text-center text-gray-800 dark:text-white transition-colors duration-300">
                 {% if vendor_form.instance.id %}
                 Update vendor
                 {% else %}
                 Add vendor
-                {% endif %}</h2>
+                {% endif %}
+            </h2>
         </div>
 
         <!-- Popup Body -->
-        
+        <form method="post">
+            {% csrf_token %}
+            
+            <!-- Vendor Screen -->
+            <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-sm rounded-lg p-6 mb-4">
+                <h3 class="text-xl font-semibold text-gray-800 dark:text-white mb-4">Vendor Setup</h3>
+                <div class="space-y-4">
+                    {% crispy vendor_form %}
+                </div>
+            </div>
 
-                        <form method="post">
-                            {% csrf_token %}
-
-                           <!-- Vendor Screen -->
-<div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-sm rounded-lg p-6 mb-4">
-    <h3 class="text-xl font-semibold text-gray-800 dark:text-white mb-4">Vendor Setup</h3>
-    <div class="space-y-4">
-        {% crispy vendor_form %}
-    </div>
-</div>
-
-<!-- Sequence Screen -->
-<div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-sm rounded-lg p-6 mb-4">
-    <h3 class="text-xl font-semibold text-gray-800 dark:text-white mb-4">Sequence Setup</h3>
-    <div class="overflow-x-auto">
-        <table class="min-w-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 ">
-            <thead>
-                <tr class="bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200">
-                    <th class="py-3 px-6 text-left">Type</th>
-                    <th class="py-3 px-6 text-left">Alpha</th>
-                    <th class="py-3 px-6 text-left">Numeric</th>
-                    <th class="py-3 px-6 text-left">Padding</th>
-                    <th class="py-3 px-6 text-center">Delete?</th>
-                </tr>
-            </thead>
-            <tbody class="text-gray-600 dark:text-gray-300">
-                {% for form in sequence_formset %}
-                <tr class="border-b border-gray-200 dark:border-gray-700" {% if forloop.last %}id="sequence-table" {% endif %}>
-                    {% for hidden in form.hidden_fields %}
-                    <td style="display:none;">{{ hidden }}</td>
-                    {% endfor %}
-                    <td class="py-3 px-6">
-                        <select name="{{ form.prefix }}-type"
-                            class="form-select mt-1 block w-full bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 py-2 px-3 rounded-lg focus:outline-none focus:bg-white dark:focus:bg-gray-800 focus:border-indigo-500">
-                            {% for choice in form.type.field.choices %}
-                            <option value="{{ choice.0 }}" 
-                            {% if form.type.value == choice.0 %}
-                            selected
-                            {% endif %}>
-                            {{ choice.1 }}
-                            </option>
+            <!-- Sequence Screen -->
+            <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-sm rounded-lg p-6 mb-4">
+                <h3 class="text-xl font-semibold text-gray-800 dark:text-white mb-4">Sequence Setup</h3>
+                <div>
+                    <table class="min-w-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
+                        <thead>
+                            <tr class="bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200">
+                                <th class="py-3 px-6 text-left">Type</th>
+                                <th class="py-3 px-6 text-left">Alpha</th>
+                                <th class="py-3 px-6 text-left">Numeric</th>
+                                <th class="py-3 px-6 text-left">Padding</th>
+                                <th class="py-3 px-6 text-center">Delete?</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-gray-600 dark:text-gray-300">
+                            {% for form in sequence_formset %}
+                            <tr class="border-b border-gray-200 dark:border-gray-700" {% if forloop.last %}id="sequence-table" class="mx-4"{% endif %}>
+                                {% for hidden in form.hidden_fields %}
+                                <td style="display:none;">{{ hidden }}</td>
+                                {% endfor %}
+                                <td class="py-3 px-6">
+                                    <select name="{{ form.prefix }}-type"
+                                        class="form-select mt-1 block w-full bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 py-2 px-3 rounded-lg focus:outline-none focus:bg-white dark:focus:bg-gray-800 focus:border-indigo-500">
+                                        {% for choice in form.type.field.choices %}
+                                        <option value="{{ choice.0 }}" {% if form.type.value == choice.0 %}selected{% endif %}>
+                                            {{ choice.1 }}
+                                        </option>
+                                        {% endfor %}
+                                    </select>
+                                </td>
+                                <td class="py-3 px-6">
+                                    <input type="text" name="{{ form.prefix }}-alpha"
+                                        value="{{ form.alpha.value | default:'' }}"
+                                        class="form-input mt-1 block w-full bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 py-2 px-3 rounded-lg focus:outline-none focus:bg-white dark:focus:bg-gray-800 focus:border-indigo-500">
+                                </td>
+                                <td class="py-3 px-6">
+                                    <input type="number" name="{{ form.prefix }}-numeric"
+                                        value="{{ form.numeric.value | default:'' }}"
+                                        class="form-input mt-1 block w-full bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 py-2 px-3 rounded-lg focus:outline-none focus:bg-white dark:focus:bg-gray-800 focus:border-indigo-500">
+                                </td>
+                                <td class="py-3 px-6">
+                                    <input type="number" name="{{ form.prefix }}-padding"
+                                        value="{{ form.padding.value | default:'' }}"
+                                        class="form-input mt-1 block w-full bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 py-2 px-3 rounded-lg focus:outline-none focus:bg-white dark:focus:bg-gray-800 focus:border-indigo-500">
+                                </td>
+                                <td class="py-3 px-6 text-center">
+                                    <input type="checkbox" name="{{ form.prefix }}-can_delete"
+                                        class="form-checkbox h-4 w-4 text-indigo-600 dark:text-indigo-400 transition duration-150 ease-in-out"
+                                        {% if form.can_delete.value %}checked{% endif %}>
+                                </td>
+                            </tr>
                             {% endfor %}
-                        </select>
-                    </td>
-                    <td class="py-3 px-6">
-                        <input type="text" name="{{ form.prefix }}-alpha"
-                            value="{{ form.alpha.value | default:'' }}"
-                            class="form-input mt-1 block w-full bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 py-2 px-3 rounded-lg focus:outline-none focus:bg-white dark:focus:bg-gray-800 focus:border-indigo-500">
-                    </td>
-                    <td class="py-3 px-6">
-                        <input type="number" name="{{ form.prefix }}-numeric"
-                            value="{{ form.numeric.value | default:'' }}"
-                            class="form-input mt-1 block w-full bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 py-2 px-3 rounded-lg focus:outline-none focus:bg-white dark:focus:bg-gray-800 focus:border-indigo-500">
-                    </td>
-                    <td class="py-3 px-6">
-                        <input type="number" name="{{ form.prefix }}-padding"
-                            value="{{ form.padding.value | default:'' }}"
-                            class="form-input mt-1 block w-full bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 py-2 px-3 rounded-lg focus:outline-none focus:bg-white dark:focus:bg-gray-800 focus:border-indigo-500">
-                    </td>
-                    <td class="py-3 px-6 text-center">
-                        <input type="checkbox" name="{{ form.prefix }}-can_delete"
-                            class="form-checkbox h-4 w-4 text-indigo-600 dark:text-indigo-400 transition duration-150 ease-in-out"
-                            {% if form.can_delete.value %}checked{% endif %}>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Page footer -->
+            <div class="flex items-center justify-center p-6 border-t border-gray-200 rounded-b dark:border-gray-700 space-x-4">
+                <button type="submit"
+                    class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+                    {% if vendor_form.instance.id %}
+                    Update
+                    {% else %}
+                    Save
+                    {% endif %}
+                </button>
+                <a href="{% url 'vendor:vendor_list' %}"
+                    class="text-gray-700 border border-gray-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:border-gray-600 dark:text-white">
+                    Cancel
+                </a>
+            </div>
+        </form>
     </div>
 </div>
 
-
-                            <!-- Page footer -->
-                            <div
-                                class="flex items-center justify-center p-6 border-t border-gray-200 rounded-b dark:border-gray-700 space-x-4">
-                                <button type="submit"
-                                    class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
-                                    {% if vendor_form.instance.id %}
-                                    Update
-                                    {% else %}
-                                    Save
-                                    {% endif %}
-                                </button>
-                                <a href="{% url 'vendor:vendor_list' %}"
-                                    class="text-gray-700 border border-gray-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:border-gray-600 dark:text-white">
-                                    Cancel
-                                </a>
-                            </div>
-                        </form>
-                 
-
-            <!-- end content -->
-
-
-        </div>
-    </div>
-</div>
 {% endblock %}

@@ -69,8 +69,12 @@ def update_vendor(request, vendor_id):
                     messages.success(request, 'Vendor updated successfully.')
                     return redirect('vendor:vendor_list')
                 else:
+                    print("Form data:", sequence_formset.data)
+
+                    print('seq-erors',sequence_formset.errors)
                     messages.error(request, 'Please correct the errors in the sequence formset.')
         else:
+            print('form-erors',vendor_form.errors)
             messages.error(request, 'Please correct the errors below.')
     else:
         vendor_form = VendorForm(instance=vendor)
