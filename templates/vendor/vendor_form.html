@@ -34,57 +34,61 @@
                 <h3 class="text-xl font-semibold text-gray-800 dark:text-white mb-4">Sequence Setup</h3>
                 <div>
                     <table class="min-w-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
-                        <thead>
-                            <tr class="bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200">
-                                <th class="py-3 px-6 text-left">Type</th>
-                                <th class="py-3 px-6 text-left">Alpha</th>
-                                <th class="py-3 px-6 text-left">Numeric</th>
-                                <th class="py-3 px-6 text-left">Padding</th>
-                                <th class="py-3 px-6 text-center">Delete?</th>
-                            </tr>
-                        </thead>
-                        <tbody class="text-gray-600 dark:text-gray-300">
-                            {% for form in sequence_formset %}
-                            <tr class="border-b border-gray-200 dark:border-gray-700" {% if forloop.last %}id="sequence-table" class="mx-4"{% endif %}>
-                                {% for hidden in form.hidden_fields %}
-                                <td style="display:none;">{{ hidden }}</td>
-                                {% endfor %}
-                                <td class="py-3 px-6">
-                                    <select name="{{ form.prefix }}-type"
-                                        class="form-select mt-1 block w-full bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 py-2 px-3 rounded-lg focus:outline-none focus:bg-white dark:focus:bg-gray-800 focus:border-indigo-500">
-                                        {% for choice in form.type.field.choices %}
-                                        <option value="{{ choice.0 }}" {% if form.type.value == choice.0 %}selected{% endif %}>
-                                            {{ choice.1 }}
-                                        </option>
-                                        {% endfor %}
-                                    </select>
-                                </td>
-                                <td class="py-3 px-6">
-                                    <input type="text" name="{{ form.prefix }}-alpha"
-                                        value="{{ form.alpha.value | default:'' }}"
-                                        class="form-input mt-1 block w-full bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 py-2 px-3 rounded-lg focus:outline-none focus:bg-white dark:focus:bg-gray-800 focus:border-indigo-500">
-                                </td>
-                                <td class="py-3 px-6">
-                                    <input type="number" name="{{ form.prefix }}-numeric"
-                                        value="{{ form.numeric.value | default:'' }}"
-                                        class="form-input mt-1 block w-full bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 py-2 px-3 rounded-lg focus:outline-none focus:bg-white dark:focus:bg-gray-800 focus:border-indigo-500">
-                                </td>
-                                <td class="py-3 px-6">
-                                    <input type="number" name="{{ form.prefix }}-padding"
-                                        value="{{ form.padding.value | default:'' }}"
-                                        class="form-input mt-1 block w-full bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 py-2 px-3 rounded-lg focus:outline-none focus:bg-white dark:focus:bg-gray-800 focus:border-indigo-500">
-                                </td>
-                                <td class="py-3 px-6 text-center">
-                                    <input type="checkbox" name="{{ form.prefix }}-can_delete"
-                                        class="form-checkbox h-4 w-4 text-indigo-600 dark:text-indigo-400 transition duration-150 ease-in-out"
-                                        {% if form.can_delete.value %}checked{% endif %}>
-                                </td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
+    <thead>
+        <tr class="bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200">
+            <th class="py-3 px-6 text-left" style="width: 35%;">Type</th>
+            <th class="py-3 px-6 text-left" style="width: 20%;">Alpha</th>
+            <th class="py-3 px-6 text-left" style="width: 20%;">Numeric</th>
+            <th class="py-3 px-6 text-left" style="width: 20%;">Padding</th>
+            <th class="py-3 px-6 text-center" style="width: 5%;">Delete?</th>
+        </tr>
+    </thead>
+    <tbody class="text-gray-600 dark:text-gray-300">
+        {% for form in sequence_formset %}
+        <tr class="border-b border-gray-200 dark:border-gray-700" {% if forloop.last %}id="sequence-table" class="mx-4"{% endif %}>
+            {% for hidden in form.hidden_fields %}
+            <td style="display:none;">{{ hidden }}</td>
+            {% endfor %}
+            <td class="py-3 px-6" style="width: 35%;">
+                <select name="{{ form.prefix }}-type"
+                    class="form-select mt-1 block w-full bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 py-2 px-3 rounded-lg focus:outline-none  focus:border-indigo-500">
+                    {% for choice in form.type.field.choices %}
+                    <option value="{{ choice.0 }}" {% if form.type.value == choice.0 %}selected{% endif %}>
+                        {{ choice.1 }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </td>
+            <td class="py-3 px-6" style="width: 20%;">
+                <input type="text" name="{{ form.prefix }}-alpha"
+                    value="{{ form.alpha.value | default:'' }}"
+                    class="form-input mt-1 block w-full bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 py-2 px-3 rounded-lg focus:outline-none  focus:border-indigo-500">
+            </td>
+            <td class="py-3 px-6" style="width: 20%;">
+                <input type="number" name="{{ form.prefix }}-numeric"
+                    value="{{ form.numeric.value | default:'' }}"
+                    class="form-input mt-1 block w-full bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 py-2 px-3 rounded-lg focus:outline-none  focus:border-indigo-500">
+            </td>
+            <td class="py-3 px-6" style="width: 20%;">
+                <input type="number" name="{{ form.prefix }}-padding"
+                    value="{{ form.padding.value | default:'' }}"
+                    class="form-input mt-1 block w-full bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 py-2 px-3 rounded-lg focus:outline-none  focus:border-indigo-500">
+            </td>
+            <td class="py-3 px-6 text-center" style="width: 5%;">
+                <input type="checkbox" name="{{ form.prefix }}-can_delete"
+                    class="form-checkbox h-4 w-4 text-indigo-600 dark:text-indigo-400 transition duration-150 ease-in-out"
+                    {% if form.can_delete.value %}checked{% endif %}>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
                 </div>
             </div>
+
+            <!-- Add the Management Form -->
+            {{ sequence_formset.management_form }}
 
             <!-- Page footer -->
             <div class="flex items-center justify-center p-6 border-t border-gray-200 rounded-b dark:border-gray-700 space-x-4">
