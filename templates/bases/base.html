@@ -7,22 +7,25 @@
   <title>Boxes project</title>
 
 
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap"
-    rel="stylesheet" />
-  <link rel="stylesheet" href="https://flowbite-admin-dashboard.vercel.app//app.css" />
-  <link rel="apple-touch-icon" sizes="180x180"
-    href="https://flowbite-admin-dashboard.vercel.app/apple-touch-icon.png" />
-  <link rel="icon" type="image/png" sizes="32x32"
-    href="https://flowbite-admin-dashboard.vercel.app/favicon-32x32.png" />
-  <link rel="icon" type="image/png" sizes="16x16"
-    href="https://flowbite-admin-dashboard.vercel.app/favicon-16x16.png" />
-  <link rel="icon" type="image/png" href="https://flowbite-admin-dashboard.vercel.app/favicon.ico" />
-  <link rel="manifest" href="https://flowbite-admin-dashboard.vercel.app/site.webmanifest" />
-  <link rel="mask-icon" href="https://flowbite-admin-dashboard.vercel.app/safari-pinned-tab.svg" color="#5bbad5" />
+  {% comment %} <link rel="preconnect" href="https://fonts.googleapis.com" /> {% endcomment %}
+  {% comment %} <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" /> {% endcomment %}
+   
+     <link href="{% static 'font/css2.css' %}" rel="stylesheet"> 
+  <link href="{% static 'css/app.css' %}" rel="stylesheet">
+
+  {% comment %} <link rel="apple-touch-icon" sizes="180x180"
+    href="https://flowbite-admin-dashboard.vercel.app/apple-touch-icon.png" /> {% endcomment %}
+  {% comment %} <link rel="icon" type="image/png" sizes="32x32"
+    href="https://flowbite-admin-dashboard.vercel.app/favicon-32x32.png" /> {% endcomment %}
+  {% comment %} <link rel="icon" type="image/png" sizes="16x16"
+    href="https://flowbite-admin-dashboard.vercel.app/favicon-16x16.png" /> {% endcomment %}
+  {% comment %} <link rel="icon" type="image/png" href="https://flowbite-admin-dashboard.vercel.app/favicon.ico" /> {% endcomment %}
+  {% comment %} <link rel="manifest" href="https://flowbite-admin-dashboard.vercel.app/site.webmanifest" /> {% endcomment %}
+  {% comment %} <link rel="mask-icon" href="https://flowbite-admin-dashboard.vercel.app/safari-pinned-tab.svg" color="#5bbad5" /> {% endcomment %}
   <meta name="msapplication-TileColor" content="#ffffff" />
   <meta name="theme-color" content="#ffffff" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 
   <script>
     if (
@@ -37,6 +40,7 @@
   </script>
   <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}" />
   <script src="https://cdn.tailwindcss.com"></script>
+  {% comment %} <script  src="{% static 'js/tailwind.css.js' %}"></script> {% endcomment %}
 
  
 </head>
@@ -61,12 +65,12 @@
       </div>
     </div>
 
-    <script
+    {% comment %} <script
       async=""
       defer=""
       src="https://buttons.github.io/buttons.js"
-    ></script>
-    <script src="https://flowbite-admin-dashboard.vercel.app//app.bundle.js"></script>
+    ></script> {% endcomment %}
+    {% comment %} <script src="https://flowbite-admin-dashboard.vercel.app//app.bundle.js"></script> {% endcomment %}
     <svg
       id="SvgjsSvg1344"
       width="2"
@@ -90,15 +94,19 @@
         d="M-1 2647.699L-1 2647.699C-1 2647.699 53.76041666666667 2647.699 53.76041666666667 2647.699C53.76041666666667 2647.699 107.52083333333334 2647.699 107.52083333333334 2647.699C107.52083333333334 2647.699 161.28125 2647.699 161.28125 2647.699C161.28125 2647.699 215.04166666666669 2647.699 215.04166666666669 2647.699C215.04166666666669 2647.699 268.80208333333337 2647.699 268.80208333333337 2647.699C268.80208333333337 2647.699 322.5625 2647.699 322.5625 2647.699C322.5625 2647.699 322.5625 2647.699 322.5625 2647.699 "
       ></path>
     </svg>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.2/datepicker.min.js"></script>
-    <!-- jQuery (required for DataTables) -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    {% comment %} <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.2/datepicker.min.js"></script> {% endcomment %}
 
-    <!-- formset -->
+
+     {% comment %} <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.formset/1.2.2/jquery.formset.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.formset/1.2.2/jquery.formset.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.formset/1.2.2/jquery.formset.js"></script>   {% endcomment %}
 
-    <script>
+    <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+<script src="{% static 'js/jquery.formset.min.js' %}"></script>
+<script src="{% static 'js/jquery.formset.js' %}"></script>
+
+<script>
     $(function() {
         $('#sequence-table').formset({
             addText: "Add More",
@@ -109,7 +117,11 @@
     });
 </script>
   
-
+<script  src="{% static 'js/app.bundle.js' %}"></script>
+    {% comment %} <script  src="{% static 'js/app.bundle2.js' %}"></script> {% endcomment %}
+    <script src="{% static 'js/buttons.js' %}"></script>
+    <script  src="{% static 'js/git-buttons.js' %}"></script>
+    <script  src="{% static 'js/datepicker.min.js' %}"></script>
 
    
   </body>
