@@ -2,7 +2,7 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-  <div class="flex justify-center min-h-screen px-4 py-8">
+  <div class="flex justify-center min-h-screen ">
     <div class=" dark:from-gray-800 dark:via-gray-900 dark:to-gray-800 shadow-3xl rounded-xl p-6 w-full  space-y-6">
 
       <!-- Popup Heading -->
@@ -24,7 +24,7 @@
             <div class="bg-white rounded-lg shadow dark:bg-gray-800">
                 
                 <!-- Page body -->
-                <div class="p-6 space-y-6">
+                
                     <form method="post">
                     {% csrf_token %}
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
@@ -47,7 +47,7 @@
                         </div>
                    
                     </form>
-                </div>
+                
             </div>
         </div>
 
