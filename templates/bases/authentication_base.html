@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -8,14 +9,13 @@
     <meta name="generator" content="Hugo 0.58.2">
     <title>{% block title %}Page Title{% endblock %}</title>
 
-    <link rel="canonical" href="https://flowbite-admin-dashboard.vercel.app/authentication/sign-in/">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://flowbite-admin-dashboard.vercel.app//app.css">
-    <link rel="icon" type="image/png" sizes="32x32" href="https://flowbite-admin-dashboard.vercel.app/favicon-32x32.png">
-    <meta name="theme-color" content="#ffffff">
-    <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet">
+    {% comment %} <link rel="canonical" href="https://flowbite-admin-dashboard.vercel.app/authentication/sign-in/"> {% endcomment %}
+    {% comment %} <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""> {% endcomment %}
+   
+<link href="{% static 'font/css2.css' %}" rel="stylesheet">
+<link href="{% static 'css/app.css' %}" rel="stylesheet">
+<link href="{% static 'remixicon/remixicon.css' %}" rel="stylesheet">
 
 
     <script>
@@ -29,9 +29,10 @@
 <body class="bg-gray-50 dark:bg-gray-800 ">
     {% block content %}
     {% endblock %}
-
-    <script async defer src="https://buttons.github.io/buttons.js"></script>
-    <script src="https://flowbite-admin-dashboard.vercel.app//app.bundle.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.2/datepicker.min.js"></script>
+    <script async defer src="{% static 'js/app.bundle.js' %}"></script>
+    <script async defer src="{% static 'js/app.bundle2.js' %}"></script>
+    <script async defer src="{% static 'js/buttons.js' %}"></script>
+    <script async defer src="{% static 'js/datepicker.min.js' %}"></script>
+    
 </body>
 </html>

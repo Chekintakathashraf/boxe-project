@@ -18,7 +18,12 @@
         </div>
 
         <!-- Popup Body -->
+        <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-sm rounded-lg p-6 mb-4 transform transition-all duration-300 sm:p-6 ">
         
+            <div class="container mx-auto px-4">
+                <div class="bg-white rounded-lg shadow dark:bg-gray-800">
+                    
+                    <!-- Page body -->
                     <form method="post">
                         {% csrf_token %}
                         
@@ -38,10 +43,10 @@
                                     <table class="min-w-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
                                         <thead>
                                             <tr class="bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200">
-                                                <th class="py-3 px-6 text-left min-w-[250px]">Type</th>
-                                                <th class="py-3 px-6 text-left min-w-[110px]">Alpha</th>
-                                                <th class="py-3 px-6 text-left min-w-[110px]">Numeric</th>
-                                                <th class="py-3 px-6 text-left min-w-[110px]">Padding</th>
+                                                <th class="py-3 px-6 text-left min-w-[200px]">Type</th>
+                                                <th class="py-3 px-6 text-left min-w-[120px]">Alpha</th>
+                                                <th class="py-3 px-6 text-left min-w-[120px]">Numeric</th>
+                                                <th class="py-3 px-6 text-left min-w-[120px]">Padding</th>
                                                 <th class="py-3 px-6 text-center min-w-[80px]">Delete?</th>
                                             </tr>
                                         </thead>
@@ -138,9 +143,10 @@
                             </a>
                         </div>
                     </form>
-                
-        <!-- Popup Body -->
-    
+                </div>
+            </div>
+        <!-- end content -->
+    </div>
 </div>
 
 {% endblock %}
